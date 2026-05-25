@@ -838,7 +838,12 @@ header h1{
 
                     <h3>Tipo de movimiento</h3>
 
-                    <!-- Botón deshabilitado: ahora los movimientos se agregan seleccionando un concepto -->
+                    <button class="add-position-btn"
+    onclick="addPositionBlock()">
+
+    ➕ Agregar gasto/ingreso
+
+</button>
 
                 </div>
 
@@ -1325,24 +1330,13 @@ function selectWarehouse(element,name){
 
     selectedWarehouse=name;
 
-    const id = Date.now()+Math.random();
+    document
+    .querySelectorAll("#warehouseSelectors .selector")
+    .forEach(el=>el.classList.remove("active"));
 
-    const obj = {
-        id,
-        position:selectedShift,
-        concept:name,
-        incidents:{}
-    };
+element.classList.add("active");
 
-    incidents.forEach(i=>{
-        obj.incidents[i]=0;
-    });
-
-    positionsData.unshift(obj);
-
-    renderPositions();
-
-}
+updateSummary();
 
 window.selectWarehouse=selectWarehouse;
 
@@ -1364,11 +1358,22 @@ window.selectShift=selectShift;
 
 function addPositionBlock(){
 
+    if(selectedShift===""){
+        alert("Primero selecciona si es Gasto o Ingreso");
+        return;
+    }
+
+    if(selectedWarehouse===""){
+        alert("Primero selecciona un concepto");
+        return;
+    }
+
     const id=Date.now()+Math.random();
 
     const obj={
         id,
-        position:"",
+        position:selectedShift,
+        concept:selectedWarehouse,
         incidents:{}
     };
 
