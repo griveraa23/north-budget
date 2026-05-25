@@ -518,7 +518,7 @@ header h1{
             <div class="filters">
 
                 <div>
-                    <label>Nave</label>
+                    <label>Concepto</label>
                     <select id="warehouseFilter"></select>
                 </div>
 
@@ -609,7 +609,7 @@ header h1{
 
     <div class="chart-card">
 
-        <h2>🏭 Incidencias por Nave</h2>
+        <h2>🏭 Incidencias por Concepto</h2>
 
         <br>
 
@@ -661,7 +661,7 @@ header h1{
 
                         <th>Fecha</th>
                         <th>Usuario</th>
-                        <th>Nave</th>
+                        <th>Concepto</th>
                         <th>Turno</th>
                         <th>Total</th>
 
@@ -854,7 +854,7 @@ header h1{
 
                 <br><br>
 
-                <h3>Selecciona Nave</h3>
+                <h3>Selecciona Concepto</h3>
 
                 <div class="selector-group"
                     id="warehouseSelectors"></div>
@@ -873,7 +873,7 @@ header h1{
                     <button class="add-position-btn"
                         onclick="addPositionBlock()">
 
-                        ➕ Agregar Puesto
+                        ➕ Agregar gasto/ingreso
 
                     </button>
 
@@ -1082,14 +1082,14 @@ async function hashPassword(password){
 /* VARIABLES DEL SISTEMA */
 
 const warehouses = [
-"Nave 1",
-"Nave 4",
-"Nave 26",
-"Nave 52",
-"Nave 84",
-"Nave 82",
-"Nave 101",
-"Nave 109",
+"Concepto 1",
+"Concepto 4",
+"Concepto 26",
+"Concepto 52",
+"Concepto 84",
+"Concepto 82",
+"Concepto 101",
+"Concepto 109",
 "Forvia/HBPO",
 "Mtto MHE",
 "Almacen",
@@ -1098,31 +1098,28 @@ const warehouses = [
 ];
 
 const positions = [
-"Operario Flexible",
-"Tractorista",
-"Montacarguista",
-"Gruista",
-"Analista",
-"Coordinador"
+"Gasto",
+"Ingreso"
 ];
 
 const incidents = [
-"Vacante",
-"Capacitación",
-"Ausentismo",
-"Incapacidad",
-"Castigo",
-"Permiso sin goce",
-"Permiso con goce",
-"Vacaciones",
-"Producción",
-"Llenado de proceso",
-"Llenado de proceso (PAGADO)",
-"Actividades especiales VW",
-"Atraso ruta transporte",
-"Actividades especiales DHL",
-"Talleres / Cursos",
-"Sindicato"
+"Comida",
+"Gasolina",
+"Motel",
+"OXXO",
+"Renta",
+"GYM",
+"Internet",
+"Streaming",
+"Tarjeta de crédito",
+"Regalos u Obsequios",
+"Mascotas",
+"Entretenimiento",
+"Compras",
+"Ahorro",
+"Inversión",
+"Sueldo",
+"Ingreso extra"
 ];
 
 let selectedWarehouse="";
@@ -1501,7 +1498,7 @@ function renderPositions(){
                         onchange="changePosition('${block.id}',this.value)">
 
                         <option value="">
-                            Selecciona puesto
+                            Tipo de movimiento
                         </option>
 
                         ${positions.map(p=>`
@@ -1595,7 +1592,7 @@ function updateSummary(){
     let html=`
 
         <div class="summary-item">
-            <strong>Nave</strong>
+            <strong>Concepto</strong>
             <span>${selectedWarehouse || "-"}</span>
         </div>
 
@@ -1663,7 +1660,7 @@ submitButton.disabled=true;
         }
 
         if(selectedWarehouse===""){
-            alert("Selecciona nave");
+            alert("Selecciona Concepto");
             return;
         }
 
@@ -2904,7 +2901,7 @@ function exportToExcel(){
 
                         Usuario:r.username,
 
-                        Nave:r.warehouse,
+                        Concepto:r.warehouse,
 
                         Turno:r.shift,
 
@@ -3017,7 +3014,7 @@ function editReport(reportId){
     selectedShift=
         report.shift;
 
-    /* ACTIVAR NAVE */
+    /* ACTIVAR Concepto */
 
     document
         .querySelectorAll(
@@ -3107,7 +3104,7 @@ function viewReport(reportId){
         </div>
 
         <div class="summary-item">
-            <strong>Nave</strong>
+            <strong>Concepto</strong>
             <span>${report.warehouse}</span>
         </div>
 
