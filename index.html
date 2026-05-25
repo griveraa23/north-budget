@@ -838,12 +838,7 @@ header h1{
 
                     <h3>Tipo de movimiento</h3>
 
-                    <button class="add-position-btn"
-                        onclick="addPositionBlock()">
-
-                        ➕ Agregar gasto/ingreso
-
-                    </button>
+                    <!-- Botón deshabilitado: ahora los movimientos se agregan seleccionando un concepto -->
 
                 </div>
 
@@ -1151,13 +1146,15 @@ function startSession(){
 
     }
 
-    if(currentUser.role==="admin"){
+    /*
+if(currentUser.role==="admin"){
 
     document
         .getElementById("usersBtn")
         .style.display="block";
 
 }
+*/
 
 }
 
@@ -1328,13 +1325,22 @@ function selectWarehouse(element,name){
 
     selectedWarehouse=name;
 
-    document
-        .querySelectorAll("#warehouseSelectors .selector")
-        .forEach(el=>el.classList.remove("active"));
+    const id = Date.now()+Math.random();
 
-    element.classList.add("active");
+    const obj = {
+        id,
+        position:selectedShift,
+        concept:name,
+        incidents:{}
+    };
 
-    updateSummary();
+    incidents.forEach(i=>{
+        obj.incidents[i]=0;
+    });
+
+    positionsData.unshift(obj);
+
+    renderPositions();
 
 }
 
@@ -1436,7 +1442,7 @@ function renderPositions(){
     font-weight:bold;
     color:#D40511;
 ">
-    ${selectedWarehouse || "Concepto no seleccionado"}
+    ${block.concept || "Concepto no seleccionado"}
 </div>
 
                     <button class="remove-btn"
@@ -1521,7 +1527,7 @@ function updateSummary(){
         </div>
 
         <div class="summary-item">
-            <strong>Turno</strong>
+            <strong>Tipo</strong>
             <span>${selectedShift || "-"}</span>
         </div>
 
@@ -1540,7 +1546,7 @@ function updateSummary(){
         html+=`
 
             <div class="summary-item">
-                <span>${selectedWarehouse || "Concepto no seleccionado"}</span>
+                <span>${p.concept || "Concepto no seleccionado"}</span>
                 <strong>${subtotal}</strong>
             </div>
 
@@ -1561,7 +1567,7 @@ function updateSummary(){
 
 }
 
-addPositionBlock();
+//addPositionBlock();
 
 async function submitReport(){
 
@@ -1769,7 +1775,7 @@ function resetForm(){
 
     positionsData.length=0;
 
-    addPositionBlock();
+    //addPositionBlock();
 
     selectedWarehouse="";
     selectedShift="";
