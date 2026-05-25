@@ -1331,12 +1331,14 @@ function selectWarehouse(element,name){
     selectedWarehouse=name;
 
     document
-    .querySelectorAll("#warehouseSelectors .selector")
-    .forEach(el=>el.classList.remove("active"));
+        .querySelectorAll("#warehouseSelectors .selector")
+        .forEach(el=>el.classList.remove("active"));
 
-element.classList.add("active");
+    element.classList.add("active");
 
-updateSummary();
+    updateSummary();
+
+}
 
 window.selectWarehouse=selectWarehouse;
 
