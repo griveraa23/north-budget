@@ -1775,7 +1775,7 @@ if(editingReportId!==null){
 if(checkedDays.length===0){
 
     await addDoc(
-        collection(db,"reports"),
+        collection(db,"finance_movements"),
         {
             ...reportDataBase,
             scheduledDate
@@ -1812,7 +1812,7 @@ if(checkedDays.length===0){
             formatDate(newDate);
 
         await addDoc(
-            collection(db,"reports"),
+            collection(db,"finance_movements"),
             {
                 ...reportDataBase,
                 scheduledDate: formattedDate
@@ -2833,7 +2833,7 @@ function renderUsersTable(){
     
 function loadReports(){
 
-    onSnapshot(collection(db,"reports"),snapshot=>{
+    onSnapshot(collection(db,"finance_movements"),snapshot=>{
 
         reports=[];
 
@@ -2871,10 +2871,15 @@ document
     .getElementById("endDate")
     .addEventListener("change",()=>updateDashboard(reports));
 
-await loadUsers();
+currentUser = {
+    name:"Memo",
+    role:"admin",
+    employeeId:"MEMO001"
+};
+
+startSession();
 
 loadReports();
-
 function exportToExcel(){
 
     const filtered=
