@@ -1466,21 +1466,25 @@ function renderPositions(){
 
                     <div class="counter">
 
-                        <button class="minus"
-                            onclick="changeCount('${block.id}','${type}',-1)">
-                            -
-                        </button>
+    <input
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="$0.00"
+        value="${block.incidents[type] || ""}"
+        onchange="changeCount('${block.id}','${type}',this.value)"
+        style="
+            width:100%;
+            padding:12px;
+            border-radius:12px;
+            border:1px solid #ccc;
+            font-size:18px;
+            text-align:center;
+            font-weight:bold;
+        "
+    >
 
-                        <div class="count">
-                            ${block.incidents[type]}
-                        </div>
-
-                        <button class="plus"
-                            onclick="changeCount('${block.id}','${type}',1)">
-                            +
-                        </button>
-
-                    </div>
+</div>
 
                 </div>
 
@@ -1552,18 +1556,17 @@ function changePosition(id,value){
 
 window.changePosition=changePosition;
 
-function changeCount(id,incident,qty){
+function changeCount(id,incident,value){
 
-    const block=
+    const block =
         positionsData.find(x=>x.id==id);
 
-    if(block.incidents[incident]+qty>=0){
+    const amount =
+        parseFloat(value) || 0;
 
-        block.incidents[incident]+=qty;
+    block.incidents[incident] = amount;
 
-    }
-
-    renderPositions();
+    updateSummary();
 
 }
 
@@ -1676,9 +1679,7 @@ submitButton.disabled=true;
 
 if(invalidPosition){
 
-    alert(
-        "Todos los puestos deben seleccionarse"
-    );
+   alert("Selecciona si el movimiento es Gasto o Ingreso");
 
     return;
 
@@ -1694,7 +1695,7 @@ if(invalidPosition){
             },0);
 
         if(total===0){
-            alert("Agrega incidencias");
+            alert("Agrega al menos un monto");
             return;
         }
 
@@ -1741,10 +1742,10 @@ if(editingReportId!==null){
     await setDoc(
 
         doc(
-            db,
-            "reports",
-            editingReportId
-        ),
+    db,
+    "finance_movements",
+    editingReportId
+),
 
         {
             ...reportDataBase,
@@ -2964,8 +2965,8 @@ async function deleteReport(reportId){
         }
 
         await deleteDoc(
-            doc(db,"reports",reportId)
-        );
+    doc(db,"finance_movements",reportId)
+);
 
         alert(
             "Programación eliminada"
