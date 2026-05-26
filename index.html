@@ -14,11 +14,14 @@
 <style>
 
 :root{
-    --dhl-red:#D40511;
-    --dhl-yellow:#FFCC00;
-    --bg:#f5f5f5;
+    --dhl-red:#00A3FF;
+    --dhl-yellow:#1E88E5;
+    --bg:#07111F;
+    --card:#101B2D;
+    --text:#EAF2FF;
+    --muted:#8FA6C1;
+    --border:#22324A;
 }
-
 *{
     margin:0;
     padding:0;
@@ -27,7 +30,8 @@
 }
 
 body{
-    background:var(--bg);
+    background:linear-gradient(135deg,#07111F,#0B1B32);
+    color:var(--text);
 }
 
 /* LOGIN */
@@ -88,7 +92,7 @@ body{
 /* HEADER */
 
 header{
-    background:var(--dhl-yellow);
+    background:#0A2540;
     padding:20px;
     display:flex;
     justify-content:space-between;
@@ -97,9 +101,8 @@ header{
 }
 
 header h1{
-    color:var(--dhl-red);
+    color:white;
 }
-
 .header-right{
     display:flex;
     gap:20px;
@@ -150,7 +153,8 @@ header h1{
     font-size:18px;
     font-weight:bold;
     cursor:pointer;
-    background:white;
+    background:var(--card);
+color:var(--text);
 }
 
 .top-buttons button.active{
@@ -167,7 +171,7 @@ header h1{
 }
 
 .card{
-    background:white;
+    background:var(--card);
     padding:20px;
     border-radius:20px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
@@ -186,6 +190,9 @@ header h1{
     padding:12px;
     border-radius:12px;
     border:1px solid #ccc;
+    background:#0B1626;
+color:var(--text);
+border:1px solid var(--border);
 }
 
 .quick-filters{
@@ -217,7 +224,7 @@ header h1{
 }
 
 .kpi{
-    background:white;
+    background:var(--card);
     padding:20px;
     border-radius:20px;
     border-left:8px solid var(--dhl-red);
