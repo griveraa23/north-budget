@@ -430,7 +430,9 @@ header h1{
 
 <!-- LOGIN -->
 
-<div class="login-screen" id="loginScreen">
+<div class="login-screen"
+    id="loginScreen"
+    style="display:none;">
 
     <div class="login-card">
 
@@ -468,7 +470,7 @@ header h1{
         <div class="user-info"
             id="activeUser">
 
-            👤 Sin sesión
+            👤 Guillermo
 
         </div>
 
@@ -477,8 +479,10 @@ header h1{
             <div id="time"></div>
         </div>
 
-        <button class="logout-btn"
-            onclick="logout()">
+        Cámbialo por:
+
+<button class="logout-btn"
+    style="display:none;">
 
             🔒 Cerrar sesión
 
@@ -977,7 +981,11 @@ const db = getFirestore(app);
 
 let users=[];
 
-let currentUser=null;
+let currentUser={
+    name:"Memo",
+    role:"admin",
+    employeeId:"MEMO001"
+};
 
 async function loadUsers(){
 
@@ -1079,7 +1087,7 @@ async function login(){
 
     if(users.length===0){
 
-        await loadUsers();
+        // await loadUsers();
 
     }
 
@@ -1175,6 +1183,7 @@ window.logout=logout;
 
 /* PERSISTENCIA */
 
+/*
 const savedUser=
     localStorage.getItem("dhlUser");
 
@@ -1188,7 +1197,8 @@ if(savedUser){
     },300);
 
 }
-
+*/
+    
 /* FECHAS */
 
 const today = new Date();
@@ -1640,9 +1650,9 @@ submitButton.disabled=true;
 const reportDataBase={
 
     username,
-    warehouse:selectedWarehouse,
-    shift:selectedShift,
-    positions:positionsData,
+    warehouse:"multiple",
+shift:selectedShift,
+positions:positionsData,
     total,
 
     creationType,
@@ -2482,7 +2492,7 @@ if(existingUser){
         document.getElementById("newEmployeeId").value="";
         document.getElementById("newPassword").value="";
 
-        await loadUsers();
+        // await loadUsers();
 
         renderUsersTable();
 
@@ -2513,7 +2523,7 @@ async function toggleUserStatus(employeeId,currentStatus){
             }
         );
 
-        await loadUsers();
+        // await loadUsers();
 
         renderUsersTable();
 
@@ -2598,7 +2608,7 @@ await setDoc(
     updatedData
 );
 
-        await loadUsers();
+        // await loadUsers();
 
         renderUsersTable();
 
@@ -2643,7 +2653,7 @@ async function resetPassword(employeeId){
             }
         );
 
-        await loadUsers();
+        // await loadUsers();
 
         renderUsersTable();
 
