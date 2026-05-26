@@ -671,7 +671,7 @@ border:1px solid var(--border);
 
     <div class="chart-card">
 
-        <h2>🏭 Incidencias por Concepto</h2>
+        <h2>🏭 Movimientos por Concepto</h2>
 
         <br>
 
@@ -685,7 +685,7 @@ border:1px solid var(--border);
 
     <div class="chart-card">
 
-        <h2>💰 PAY</h2>
+        <h2>💰 Ingresos vs Gastos</h2>
 
         <br>
 
@@ -994,7 +994,7 @@ box-shadow:0 20px 60px rgba(0,0,0,.45);
             X
         </button>
 
-        <h2>📋 Detalle de Programación</h2>
+        <h2>📋 Detalle de Movimiento</h2>
 
         <br>
 
@@ -1591,6 +1591,8 @@ function updateSummary(){
 
     let total=0;
 
+  
+
     let html=`
 
         <div class="summary-item">
@@ -2115,56 +2117,49 @@ if(endDate){
 
 }
 
-function renderDynamicKpis(total,incidentTotals){
+function renderDynamicKpis(balance, totals){
 
-    const container=
+    const container =
         document.getElementById("dynamicKpis");
 
     container.innerHTML="";
 
-    container.innerHTML += `
+    const cards = [
+        {
+            title:"💰 Saldo Actual",
+            value:`$${balance.toLocaleString()}`
+        },
+        {
+            title:"📈 Ingresos",
+            value:`$${totals.Ingresos.toLocaleString()}`
+        },
+        {
+            title:"📉 Gastos",
+            value:`$${totals.Gastos.toLocaleString()}`
+        },
+        {
+            title:"📊 Balance",
+            value:`$${totals.Balance.toLocaleString()}`
+        }
+    ];
 
-        <div class="kpi
-            ${activeIncident===null?"active":""}"
+    cards.forEach(card=>{
 
-            onclick="selectIncident(null)">
+        container.innerHTML += `
 
-            <h3>Cuentas con un Saldo de:</h3>
+            <div class="kpi">
 
-            <div class="kpi-number">
-                ${total}
-            </div>
+                <h3>${card.title}</h3>
 
-        </div>
-
-    `;
-
-    Object.entries(incidentTotals)
-
-        .filter(([k,v])=>v>0)
-
-        .sort((a,b)=>b[1]-a[1])
-
-        .forEach(item=>{
-
-            container.innerHTML += `
-
-                <div class="kpi
-                    ${activeIncident===item[0]?"active":""}"
-
-                    onclick="selectIncident('${item[0]}')">
-
-                    <h3>${item[0]}</h3>
-
-                    <div class="kpi-number">
-                        ${item[1]}
-                    </div>
-
+                <div class="kpi-number">
+                    ${card.value}
                 </div>
 
-            `;
+            </div>
 
-        });
+        `;
+
+    });
 
 }
 
@@ -2814,7 +2809,7 @@ async function deleteReport(reportId){
 
         const confirmDelete=
             confirm(
-                "¿Eliminar programación?"
+                "¿Eliminar movimiento?"
             );
 
         if(!confirmDelete){
@@ -2826,7 +2821,7 @@ async function deleteReport(reportId){
 );
 
         alert(
-            "Programación eliminada"
+            "Movimiento eliminado"
         );
 
     }catch(error){
