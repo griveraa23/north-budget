@@ -2416,18 +2416,18 @@ if(type==="6months"){
 
 if(type==="12months"){
 
-    startDate=
+    startDate =
         new Date(
             now.getFullYear(),
-            now.getMonth()-11,
+            0,
             1
         );
 
-    endDate=
+    endDate =
         new Date(
             now.getFullYear(),
-            now.getMonth()+1,
-            0
+            11,
+            31
         );
 
 }
