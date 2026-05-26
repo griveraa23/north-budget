@@ -1227,6 +1227,59 @@ box-shadow:0 20px 60px rgba(0,0,0,.45);
 
 </div>
 
+<div id="manualConceptModal"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.65);
+        z-index:99999;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+    ">
+
+    <div style="
+        background:#101B2D;
+        color:#EAF2FF;
+        border:1px solid #22324A;
+        box-shadow:0 20px 60px rgba(0,0,0,.45);
+        width:100%;
+        max-width:420px;
+        border-radius:20px;
+        padding:25px;
+    ">
+
+        <h2>📝 Concepto Manual</h2>
+
+        <br>
+
+        <input id="manualConceptInput"
+            type="text"
+            placeholder="Ej. Viaje, regalo, trámite..."
+            style="
+                width:100%;
+                padding:14px;
+                border-radius:12px;
+                font-size:16px;
+                margin-bottom:20px;
+            ">
+
+        <button class="submit-btn"
+            onclick="confirmManualConcept()">
+            ✅ Usar concepto
+        </button>
+
+        <button class="remove-btn"
+            style="width:100%; margin-top:10px;"
+            onclick="closeManualConceptModal()">
+            Cancelar
+        </button>
+
+    </div>
+
+</div>    
+
 <script type="module">
 
 import { initializeApp }
@@ -1335,10 +1388,10 @@ const warehouses = [
 "Mascotas",
 "Entretenimiento",
 "Compras",
+"Otro",    
 "Ahorro",
 "Sueldo",
-"Ingreso extra",
-"Otro",
+"Ingreso extra"
 ];
     
 const positions = [
@@ -1352,6 +1405,7 @@ const incidents = [
 
 let selectedWarehouse="";
 let selectedShift="";
+let pendingManualElement=null;    
 let reports=[];
 let activeIncident=null;
 let editingReportId=null;
@@ -1622,26 +1676,24 @@ renderWarehouses();
 
 function selectWarehouse(element,name){
 
-    let finalName = name;
-
     if(name==="Otro"){
 
-        const manualConcept =
-            prompt("Escribe el concepto manual:");
+        pendingManualElement = element;
 
-        if(
-            manualConcept===null ||
-            manualConcept.trim()===""
-        ){
-            return;
-        }
+        document.getElementById("manualConceptInput").value = "";
 
-        finalName =
-            manualConcept.trim();
+        document.getElementById("manualConceptModal").style.display =
+            "flex";
+
+        setTimeout(()=>{
+            document.getElementById("manualConceptInput").focus();
+        },100);
+
+        return;
 
     }
 
-    selectedWarehouse=finalName;
+    selectedWarehouse=name;
 
     document
         .querySelectorAll("#warehouseSelectors .selector")
@@ -1649,18 +1701,68 @@ function selectWarehouse(element,name){
 
     element.classList.add("active");
 
-    if(name==="Otro"){
+    updateSummary();
 
-        element.innerText =
-            `Otro: ${finalName}`;
+}
+window.selectWarehouse=selectWarehouse;
+
+    function confirmManualConcept(){
+
+    const manualConcept =
+        document.getElementById("manualConceptInput").value;
+
+    if(manualConcept.trim()===""){
+        alert("Escribe un concepto");
+        return;
+    }
+
+    selectedWarehouse =
+        manualConcept.trim();
+
+    document
+        .querySelectorAll("#warehouseSelectors .selector")
+        .forEach(el=>el.classList.remove("active"));
+
+    if(pendingManualElement){
+
+        pendingManualElement.classList.add("active");
+
+        pendingManualElement.innerText =
+            `Otro: ${selectedWarehouse}`;
 
     }
+
+    closeManualConceptModal();
 
     updateSummary();
 
 }
 
-window.selectWarehouse=selectWarehouse;
+window.confirmManualConcept=confirmManualConcept;
+
+function closeManualConceptModal(){
+
+    document.getElementById("manualConceptModal").style.display =
+        "none";
+
+    pendingManualElement=null;
+
+}
+
+window.closeManualConceptModal=closeManualConceptModal;
+
+
+    selectedWarehouse=name;
+
+    document
+        .querySelectorAll("#warehouseSelectors .selector")
+        .forEach(el=>el.classList.remove("active"));
+
+    element.classList.add("active");
+
+    updateSummary();
+
+}    
 
 function selectShift(element,name){
 
