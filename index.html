@@ -39,7 +39,7 @@ body{
 .login-screen{
     position:fixed;
     inset:0;
-    background:#f5f5f5;
+    background:linear-gradient(135deg,#07111F,#0B1B32);
     display:flex;
     justify-content:center;
     align-items:center;
@@ -49,14 +49,16 @@ body{
 .login-card{
     width:100%;
     max-width:420px;
-    background:white;
+    background:#101B2D;
+    color:var(--text);
+    border:1px solid var(--border);
     padding:40px;
     border-radius:24px;
     box-shadow:0 8px 30px rgba(0,0,0,.1);
 }
 
 .login-card h1{
-    color:var(--dhl-red);
+    color:var(--text);
     margin-bottom:25px;
     text-align:center;
 }
@@ -197,6 +199,17 @@ color:var(--text);
 border:1px solid var(--border);
 }
 
+input,
+select{
+    background:#0B1626;
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+input::placeholder{
+    color:#8FA6C1;
+}    
+
 .quick-filters{
     display:flex;
     gap:10px;
@@ -287,11 +300,12 @@ border:1px solid var(--border);
 }
 
 .position-block{
-    background:#fafafa;
+    background:#132238;
     border-radius:20px;
     padding:20px;
     margin-bottom:20px;
-    border:2px solid #eee;
+    border:1px solid var(--border);
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
 }
 
 .position-header{
@@ -310,9 +324,11 @@ border:1px solid var(--border);
 }
 
 .incident-card{
-    background:white;
+    background:#0B1626;
+    color:var(--text);
     padding:15px;
     border-radius:15px;
+    border:1px solid var(--border);
 }
 
 .counter{
@@ -383,7 +399,8 @@ border:1px solid var(--border);
     justify-content:space-between;
     margin-bottom:10px;
     padding-bottom:10px;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--border);
+    color:var(--text);
 }
 
 .report-layout{
@@ -400,7 +417,9 @@ border:1px solid var(--border);
 }
 
 .chart-card{
-    background:white;
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
     padding:20px;
     border-radius:20px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
@@ -421,8 +440,20 @@ border:1px solid var(--border);
 .history-table th,
 .history-table td{
     padding:12px;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--border);
     text-align:left;
+    color:var(--text);
+}
+
+.history-table th{
+    color:#8FA6C1;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+}
+
+.history-table tr:hover{
+    background:#132238;
 }
 
 .toast{
@@ -930,7 +961,10 @@ border:1px solid var(--border);
 
     <div
         style="
-            background:white;
+            background:#101B2D;
+color:#EAF2FF;
+border:1px solid #22324A;
+box-shadow:0 20px 60px rgba(0,0,0,.45);
             width:100%;
             max-width:900px;
             max-height:90vh;
@@ -2934,11 +2968,12 @@ function viewReport(reportId){
 
             <div
                 style="
-                    border:1px solid #eee;
-                    border-radius:15px;
-                    padding:15px;
-                    margin-bottom:15px;
-                    background:#fafafa;
+                    border:1px solid #22324A;
+border-radius:15px;
+padding:15px;
+margin-bottom:15px;
+background:#132238;
+color:#EAF2FF;
                 "
             >
 
