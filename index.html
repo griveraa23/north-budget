@@ -639,7 +639,7 @@ border:1px solid var(--border);
     <button class="quick-btn"
         onclick="exportToExcel()"
         style="
-            background:#D40511;
+            background:#00A3FF;
             color:white;
         ">
 
@@ -727,7 +727,7 @@ border:1px solid var(--border);
                         <th>Movimiento</th>
                         <th>Total</th>
 
-                        <th>Tipo</th>
+                        
 
                         <th>Creado</th>
 
@@ -982,7 +982,7 @@ box-shadow:0 20px 60px rgba(0,0,0,.45);
                 top:15px;
                 right:15px;
                 border:none;
-                background:#D40511;
+                background:#00A3FF;
                 color:white;
                 width:35px;
                 height:35px;
@@ -1172,7 +1172,7 @@ const user = users.find(u =>
     currentUser = user;
 
     localStorage.setItem(
-        "dhlUser",
+        "northBudgetUser",
         JSON.stringify(user)
     );
 
@@ -1232,7 +1232,7 @@ if(currentUser.role==="admin"){
 
 function logout(){
 
-    localStorage.removeItem("dhlUser");
+    localStorage.removeItem("northBudgetUser");
 
     location.reload();
 
@@ -1244,7 +1244,7 @@ window.logout=logout;
 
 /*
 const savedUser=
-    localStorage.getItem("dhlUser");
+    localStorage.getItem("northBudgetUser");
 
 if(savedUser){
 
@@ -2242,9 +2242,7 @@ function updateDashboard(data){
                 <td>${r.username}</td>
                 <td>${conceptsText}</td>
                 <td>${r.type}</td>
-                <td>$${movementTotal}</td>
-
-<td>${r.type}</td>
+<td>$${movementTotal}</td>
 
 <td>${r.createdAt || "-"}</td>
 
@@ -2289,7 +2287,7 @@ function updateDashboard(data){
                             padding:6px 10px;
                             border:none;
                             border-radius:8px;
-                            background:#D40511;
+                            background:#E53935;
                             color:white;
                             font-weight:bold;
                             cursor:pointer;
@@ -2735,7 +2733,7 @@ document
     .addEventListener("change",()=>updateDashboard(reports));
 
 const savedUser =
-    localStorage.getItem("dhlUser");
+    localStorage.getItem("northBudgetUser");
 
 if(savedUser){
 
