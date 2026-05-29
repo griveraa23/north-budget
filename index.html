@@ -516,29 +516,6 @@ border:1px solid var(--border);
     grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 }    
 
-@media(max-width:900px){
-
-    .report-layout{
-        grid-template-columns:1fr;
-    }
-
-    .charts-grid{
-        grid-template-columns:1fr;
-    }
-
-}
-
-@media(max-width:600px){
-
-    .insights-card{
-    min-height:auto !important;
-    overflow:visible;
-}
-
-.insights-card .goal-grid{
-    grid-template-columns:1fr;
-}
-
 .advisor-box{
     margin-top:22px;
     padding-top:18px;
@@ -561,7 +538,30 @@ border:1px solid var(--border);
 
 .advisor-item strong{
     color:#00A3FF;
-}    
+}
+    
+@media(max-width:900px){
+
+    .report-layout{
+        grid-template-columns:1fr;
+    }
+
+    .charts-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .insights-card{
+    min-height:auto !important;
+    overflow:visible;
+}
+
+.insights-card .goal-grid{
+    grid-template-columns:1fr;
+} 
     
 .insights-card .goal-item{
     min-height:auto;
@@ -2631,6 +2631,42 @@ function selectIncident(name){
 
 window.selectIncident=selectIncident;
 
+function formatDuration(days){
+
+    if(days<=0){
+        return "Meta cumplida 🎉";
+    }
+
+    const years =
+        Math.floor(days / 365);
+
+    const remainingAfterYears =
+        days % 365;
+
+    const months =
+        Math.floor(remainingAfterYears / 30);
+
+    const finalDays =
+        remainingAfterYears % 30;
+
+    const parts=[];
+
+    if(years>0){
+        parts.push(`${years} año${years>1 ? "s" : ""}`);
+    }
+
+    if(months>0){
+        parts.push(`${months} mes${months>1 ? "es" : ""}`);
+    }
+
+    if(finalDays>0){
+        parts.push(`${finalDays} día${finalDays>1 ? "s" : ""}`);
+    }
+
+    return parts.join(", ");
+
+}    
+
 function renderGoalCard(balance, incomeTotal, expenseTotal){
 
     const goalAmount = 70000;
@@ -2659,8 +2695,21 @@ function renderGoalCard(balance, incomeTotal, expenseTotal){
         const estimatedDays =
             Math.ceil(remaining / dailySaving);
 
-        estimatedDaysText =
-            `${estimatedDays} días`;
+        const targetDate =
+    new Date();
+
+targetDate.setDate(
+    targetDate.getDate() + estimatedDays
+);
+
+estimatedDaysText =
+    `
+    ${targetDate.toLocaleDateString("es-MX")}
+    <br>
+    <span style="font-size:14px;color:#8FA6C1;">
+        ${formatDuration(estimatedDays)}
+    </span>
+    `;
 
     }
 
