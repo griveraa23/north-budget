@@ -3202,60 +3202,7 @@ function updateDashboard(data){
     payChart.update();
 
 }
-    renderDynamicKpis(
-        total,
-        {
-            Ingresos: incomeTotal,
-            Gastos: expenseTotal,
-            Balance: total
-        }
-    );
-
-    renderGoalCard(
-    total,
-    incomeTotal,
-    expenseTotal
-);
-
-renderInsightsBoard(filtered);
-
-    lineChart.data.labels =
-        Object.keys(conceptTotals);
-
-    lineChart.data.datasets[0].label =
-        "Gastos / Ingresos por concepto";
-
-    lineChart.data.datasets[0].data =
-        Object.values(conceptTotals);
-
-    lineChart.update();
-
-    barChart.data.labels =
-        Object.keys(conceptTotals);
-
-    barChart.data.datasets[0].label =
-        "Totales por concepto";
-
-    barChart.data.datasets[0].data =
-        Object.values(conceptTotals);
-
-    barChart.update();
-
-    payChart.data.labels=[
-        "Ingresos",
-        "Gastos"
-    ];
-
-    payChart.data.datasets[0].data=[
-        incomeTotal,
-        expenseTotal
-    ];
-
-    payChart.update();
-
-
-}
-
+ 
 async function createUser(){
 
     try{
